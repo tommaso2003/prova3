@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Piattaforma Filtri Immagini</title>
+</head>
+<body>
+  <div class="search-bar">
+    <input type="text" id="searchBox" placeholder="Cerca una texture..." onkeyup="filterImages()">
+  </div>
+  <div class="container">
+    <script>
+      const images = [
+        { src: "image1.jpg", name: "Mare" },
+        { src: "image2.jpg", name: "Montagna" },
+        { src: "image3.jpg", name: "Città" },
+        { src: "image4.jpg", name: "Foresta" },
+        { src: "image5.jpg", name: "Deserto" },
+        { src: "image6.jpg", name: "Fiume" },
+        { src: "image7.jpg", name: "Cascata" },
+        { src: "image8.jpg", name: "Tramonto" },
+        { src: "image9.jpg", name: "Luna" },
+        { src: "image10.jpg", name: "Neve" },
+        { src: "image11.jpg", name: "Estate" },
+        { src: "image12.jpg", name: "Primavera" },
+        { src: "image13.jpg", name: "Autunno" },
+        { src: "image14.jpg", name: "Inverno" },
+        { src: "image15.jpg", name: "Lago" },
+        { src: "image16.jpg", name: "Spiaggia" },
+        { src: "image17.jpg", name: "Colline" },
+        { src: "image18.jpg", name: "Pianura" },
+        { src: "image19.jpg", name: "Vulcano" },
+        { src: "image20.jpg", name: "Isola" },
+        { src: "image21.jpg", name: "Faro" },
+        { src: "image22.jpg", name: "Villaggio" },
+        { src: "image23.jpg", name: "Grattacieli" },
+        { src: "image24.jpg", name: "Fattoria" }
+      ];
+
+      const colors = [
+        { hex: "#4A4844", name: "Cioccolato" },
+        { hex: "#5D311E", name: "Caramello" },
+        { hex: "#A1865B", name: "Sabbia" },
+        { hex: "#7F6030", name: "Bronzo" },
+        { hex: "#CDC8BC", name: "Perla" },
+        { hex: "#2A251C", name: "Ebano" },
+        { hex: "#444F4B", name: "Verde Bosco" },
+        { hex: "#8D8373", name: "Crema" },
+        { hex: "#716C60", name: "Taupe" },
+        { hex: "#ACA9A0", name: "Grigio Nebbia" },
+        { hex: "#A1967F", name: "Oro Opaco" },
+        { hex: "#57554D", name: "Ardesia" },
+        { hex: "#3E3026", name: "Castagna" }
+      ];
+
+      function generatePanels() {
+        const container = document.querySelector('.container');
+        images.forEach((image, index) => {
+          const panelId = `panel${index + 1}`;
+          const overlayId = `overlay-${panelId}`;
+          const panel = document.createElement('div');
+          panel.className = 'panel';
+          panel.dataset.name = image.name.toLowerCase();
+          panel.innerHTML = `
+            <h2>${image.name}</h2>
+            <div class="image-container">
+              <img id="${panelId}" src="images/${image.src}" alt="${image.name}">
+              <div class="overlay" id="${overlayId}"></div>
+            </div>
+            <div class="buttons">
+              ${colors.map((color) => `
+                <button style="background-color: ${color.hex}" onclick="applyColorOverlay('${panelId}', '${color.hex}')">
+                  <span>${color.name}</span>
+                </button>
+              `).join('')}
+              <button style="background-color: #ff0000" onclick="resetOverlay('${panelId}')">Reset</button>
+            </div>
+          `;
+          container.appendChild(panel);
+        });
+      }
+
+      generatePanels();
+    </script>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
